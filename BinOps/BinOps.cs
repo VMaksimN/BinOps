@@ -4,8 +4,9 @@ namespace BinOps
 {
     public static class BinOps
     {
-        static int[] One = new int[] { 1 };
-        static int[] Zero = new int[] { 0 };
+        public static int[] Zero = new int[] { 0 };
+        public static int[] One = new int[] { 1 };
+        public static int[] Two = new int[] { 1, 0 };
 
         public static (int[], int[]) DivideBinaryNumber(int[] dividend, int[] divider)
         {
@@ -114,7 +115,7 @@ namespace BinOps
                         //Two last zero`s will be considered
                         if (!was_divided[i])
                         {
-                            div_offset++; 
+                            div_offset++;
                         }
                     }
                     break;
@@ -349,6 +350,8 @@ namespace BinOps
         }
 
 
+
+
         public static T[] TakeRange<T>(T[] array, int start, int amount)
         {
             T[] res = new T[amount];
@@ -382,7 +385,7 @@ namespace BinOps
             return result;
         }
 
-        public static int[] DecimalToBinary(int dec)
+        public static int[] DecimalToBinary(long dec)
         {
             int result_length = 1;
 
@@ -395,7 +398,7 @@ namespace BinOps
 
             for (int i = result_length - 1; i > -1; i--)
             {
-                res[i] = dec % 2;
+                res[i] = (int)(dec % 2);
                 dec /= 2;
             }
 
@@ -488,5 +491,243 @@ namespace BinOps
             return -1;
         }
 
+    }
+
+    public class Binary
+    {
+        int[] num = null;
+
+        /// <summary>
+        /// Create a new Binary with required length
+        /// </summary>
+        /// <param name="len">Length</param>
+        public Binary(int len)
+        {
+            num = new int[len];
+        }
+
+        /// <summary>
+        /// Create a new Binary from a long number
+        /// </summary>
+        /// <param name="num">A long number</param>
+        public Binary(long num)
+        {
+            this.num = BinOps.DecimalToBinary(num);
+        }
+
+        /// <summary>
+        /// Create a new random Binary
+        /// </summary>
+        /// <param name="min"></param>
+        /// <param name="max"></param>
+        /// <param name="Seed"></param>
+        public Binary(int min = 0, int max = 1000000000, int Seed = 0)
+        {
+            num = BinOps.DecimalToBinary(new Random(Seed).Next(min, max));
+        }
+
+        /// <summary>
+        /// Create a new Binary from a int array
+        /// </summary>
+        /// <param name="num">An int array</param>
+        public Binary(int[] num)
+        {
+            for(int i = 0; i < num.Length; i++)
+            {
+                if(num[i] > 1 || num[i] < 0)
+                {
+                    throw new Exception("Array must contain 0 and 1 only");
+                }
+            }
+
+            this.num = num;
+        }
+
+        public static bool operator == (Binary first, Binary second)
+        {
+            if(first.num.Length != second.num.Length)
+            {
+                return false;
+            }
+
+            for(int i = 0; i < first.num.Length; i++)
+            {
+                if(first.num[i] != second.num[i])
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        public static bool operator !=(Binary first, Binary second)
+        {
+            if (first.num.Length != second.num.Length)
+            {
+                return true;
+            }
+
+            for (int i = 0; i < first.num.Length; i++)
+            {
+                if (first.num[i] != second.num[i])
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+    
+        public static bool operator <(Binary first, Binary second)
+        {
+            bool flag = false;
+
+            if(first.num.Length < second.num.Length)
+            {
+                return true;
+            }
+            else if(first.num.Length > second.num.Length)
+            {
+                return false;
+            }
+
+            for(int i = 0; i < first.num.Length; i++)
+            {
+                if(first.num[i] > second.num[i])
+                {
+                    return false;
+                }
+                if(second.num[i] <= first.num[i])
+                {
+                    flag = true;
+                }
+            }
+
+            return !flag;
+        }
+
+        public static bool operator >(Binary first, Binary second)
+        {
+            bool flag = false;
+
+            if (first.num.Length < second.num.Length)
+            {
+                return false;
+            }
+            else if (first.num.Length > second.num.Length)
+            {
+                return true;
+            }
+
+            for (int i = 0; i < first.num.Length; i++)
+            {
+                if (first.num[i] < second.num[i])
+                {
+                    return false;
+                }
+                if(first.num[i] <= second.num[i])
+                {
+                    flag = true;
+                }
+            }
+
+            return !flag;
+        }
+
+        public static bool operator <=(Binary first, Binary second)
+        {
+            if (first.num.Length < second.num.Length)
+            {
+                return true;
+            }
+            else if (first.num.Length > second.num.Length)
+            {
+                return false;
+            }
+
+            for (int i = 0; i < first.num.Length; i++)
+            {
+                if (first.num[i] > second.num[i])
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        public static bool operator >=(Binary first, Binary second)
+        {
+            if (first.num.Length < second.num.Length)
+            {
+                return false;
+            }
+            else if (first.num.Length > second.num.Length)
+            {
+                return true;
+            }
+
+            for (int i = 0; i < first.num.Length; i++)
+            {
+                if (first.num[i] < second.num[i])
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        public static Binary operator +(Binary first, Binary second)
+        {
+            return new Binary(BinOps.SumBinaryNumbers(first.num, second.num));
+        }
+
+        public static Binary operator -(Binary first, Binary second)
+        {
+            return new Binary(BinOps.SubtractBinaryNumber(first.num, second.num));
+        }
+    
+        public static Binary operator --(Binary num)
+        {
+            return new Binary(BinOps.SubtractBinaryNumber(num.num, BinOps.One));
+        }
+
+        public static Binary operator ++(Binary num)
+        {
+            return new Binary(BinOps.SumBinaryNumbers(num.num, BinOps.One));
+        }
+
+        public static Binary operator *(Binary first, Binary second)
+        {
+            return new Binary(BinOps.GetBinaryMultiply(first.num, second.num));
+        }
+
+        public static Binary operator /(Binary first, Binary second)
+        {
+            return new Binary(BinOps.DivideBinaryNumber(first.num, second.num).Item1);
+        }
+
+        public static Binary operator %(Binary first, Binary second)
+        {
+            return new Binary(BinOps.DivideBinaryNumber(first.num, second.num).Item2);
+        }
+
+        public int this [int index]
+        {
+            get
+            {
+                return num[index];
+            }
+            set
+            {
+                if(value > 1 || value < 0)
+                {
+                    throw new Exception("Binary must contain 0 and 1 only");
+                }
+                num[index] = value;
+            }
+        }
     }
 }
