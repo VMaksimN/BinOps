@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29613.14
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BinOps", "BinOps\BinOps.csproj", "{36E2FEBF-B315-46E1-8016-024C1E93DF3B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BinOps", "BinOps\BinOps.csproj", "{36E2FEBF-B315-46E1-8016-024C1E93DF3B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BinOpsTests", "BinOpsTests\BinOpsTests.csproj", "{2A1C2438-1F53-4B20-8969-7E30E6996764}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{36E2FEBF-B315-46E1-8016-024C1E93DF3B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{36E2FEBF-B315-46E1-8016-024C1E93DF3B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{36E2FEBF-B315-46E1-8016-024C1E93DF3B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2A1C2438-1F53-4B20-8969-7E30E6996764}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2A1C2438-1F53-4B20-8969-7E30E6996764}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2A1C2438-1F53-4B20-8969-7E30E6996764}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2A1C2438-1F53-4B20-8969-7E30E6996764}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

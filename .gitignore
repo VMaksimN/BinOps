@@ -1,3 +1,5 @@
 BinOps/bin
 BinOps/obj
 /.vs
+/BinOpsTests
+/TestResults

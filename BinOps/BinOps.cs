@@ -206,7 +206,7 @@ namespace BinOps
                 minuend[k] -= subtrahend[i];
             }
 
-            return minuend;
+            return RemoveLeadingZeros(minuend);
         }
 
         public static int[] GetBinaryMultiply(int[] multiplicand, int[] factor)
